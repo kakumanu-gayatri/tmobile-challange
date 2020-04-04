@@ -38,9 +38,21 @@ A proxy has been set up in `stocks` to proxy calls to `locahost:3333` which is t
 Please provide a short code review of the base `master` branch:
 
 1. What is done well?
+ - Using state Management.
+ - Lazy loading
+ - Javascript destructuring to extract needed attributes from form.
+ - Good usage of Angular material, reactive forms.
+ - Good Error Handling and error response for the wrong API call.
 2. What would you change?
+- Folder structure, for better understanding.
+- The stocks component styling
+- Adding comments for better understanding.
+- The constructor in effects which is later the @Effects decorator.
 3. Are there any code smells or problematic implementations?
-
+- Unnecessary pass of observable to child component.
+- Unit testing coverage is less and some are failing. 
+- The reducers switch statement returns state explicitly where we can return on default.
+- Using production api in local environment.ts
 > Make a PR to fix at least one of the issues that you identify
 
 ### Task 2

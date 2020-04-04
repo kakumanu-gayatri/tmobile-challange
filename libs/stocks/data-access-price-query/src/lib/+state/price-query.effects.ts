@@ -18,6 +18,12 @@ import { PriceQueryResponse } from './price-query.type';
 
 @Injectable()
 export class PriceQueryEffects {
+  constructor(
+    @Inject(StocksAppConfigToken) private env: StocksAppConfig,
+    private httpClient: HttpClient,
+    private dataPersistence: DataPersistence<PriceQueryPartialState>
+  ) {}
+
   @Effect() loadPriceQuery$ = this.dataPersistence.fetch(
     PriceQueryActionTypes.FetchPriceQuery,
     {
@@ -38,10 +44,4 @@ export class PriceQueryEffects {
       }
     }
   );
-
-  constructor(
-    @Inject(StocksAppConfigToken) private env: StocksAppConfig,
-    private httpClient: HttpClient,
-    private dataPersistence: DataPersistence<PriceQueryPartialState>
-  ) {}
 }

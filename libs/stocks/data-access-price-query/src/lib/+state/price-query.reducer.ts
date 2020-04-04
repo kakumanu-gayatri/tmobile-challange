@@ -45,6 +45,7 @@ export function priceQueryReducer(
         selectedSymbol: action.symbol
       };
     }
+    default:
+      return state;
   }
-  return state;
 }
