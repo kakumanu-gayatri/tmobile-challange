@@ -1,11 +1,9 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Input,
   OnInit
 } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChartInformatonInterface } from './interfaces/chart-informaton.interface';
 
 @Component({
   selector: 'coding-challenge-chart',
@@ -13,17 +11,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
-  @Input() data$: Observable<any>;
-  chartData: any;
+  @Input() chartData: Array<Array<string | number>>;
+  private chart: ChartInformatonInterface;
 
-  chart: {
-    title: string;
-    type: string;
-    data: any;
-    columnNames: string[];
-    options: any;
-  };
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor() {}
 
   ngOnInit() {
     this.chart = {
@@ -33,7 +24,5 @@ export class ChartComponent implements OnInit {
       columnNames: ['period', 'close'],
       options: { title: `Stock price`, width: '600', height: '400' }
     };
-
-    this.data$.subscribe(newData => (this.chartData = newData));
   }
 }
