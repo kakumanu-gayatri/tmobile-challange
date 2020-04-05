@@ -1,35 +1,59 @@
-<form [formGroup]="stockPickerForm">
-  <mat-form-field>
-    <input
-      matInput
-      placeholder="Symbol e.g AAPL"
-      formControlName="symbol"
-      value=""
-    />
-    <mat-error
-      ><span
-        *ngIf="
-          !stockPickerForm.get('symbol').valid &&
-          stockPickerForm.get('symbol').touched
+<div class="grid-container">
+  <div class="grid-item">
+    <form [formGroup]="stockPickerForm">
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Symbol e.g AAPL"
+          formControlName="symbol"
+          value=""
+        />
+        <mat-error
+        ><span
+          *ngIf="
+          !symbol.valid &&
+          symbol.touched
         "
         >Please enter a symbol</span
-      >
-    </mat-error>
-  </mat-form-field>
+        >
+        </mat-error>
+      </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Favorite time period</mat-label>
-    <mat-select formControlName="period">
-      <mat-option
-        *ngFor="let timePeriod of timePeriods"
-        [value]="timePeriod.value"
-      >
-        {{ timePeriod.viewValue }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+      <div class="wrapper-grid">
+        <mat-form-field>
+          <mat-label>Period From</mat-label>
+          <input matInput [matDatepicker]="fromPicker" formControlName="periodFrom">
+          <mat-datepicker-toggle matSuffix [for]="fromPicker">
+          </mat-datepicker-toggle>
+          <mat-datepicker #fromPicker></mat-datepicker>
+          <mat-error
+          ><span
+            *ngIf="
+          !periodFrom.valid &&
+          periodFrom.touched && periodFrom.invalid
+        "
+          >Please choose a valid from Date</span
+          >
+          </mat-error>
+        </mat-form-field>
 
-  <button (click)="fetchQuote()" mat-raised-button>Go</button>
-</form>
+        <mat-form-field>
+          <mat-label>Period To</mat-label>
+          <input matInput [matDatepicker]="toPicker" formControlName="periodTo">
+          <mat-datepicker-toggle matSuffix [for]="toPicker">
+          </mat-datepicker-toggle>
+          <mat-datepicker #toPicker></mat-datepicker>
+          <mat-error
+          ><span
+            *ngIf=" !periodFrom.valid &&
+          periodFrom.touched && periodFrom.invalid "
+          >Please choose a valid To Date</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
 
-<coding-challenge-chart [data$]="quotes$"></coding-challenge-chart>
+      <button (click)="fetchQuote()" mat-raised-button>Go</button>
+    </form>
+  </div>
+  <div class="grid-item"><coding-challenge-chart [data$]="quotes$"></coding-challenge-chart></div>
+</div>
